@@ -45,13 +45,14 @@ plt.plot(h,f)
 plt.show()
 
 onda_filtrada= np.fft.ifft(f)
-filtrada=abs(np.real(onda_filtrada))
+filtrada=(np.real(onda_filtrada))
 
 plt.figure()
 plt.plot(t,y)
 plt.plot(t,filtrada)
 plt.show()
 
+#datos incompletos
 dat_in= np.genfromtxt("incompletos.dat", usecols=(0,2))
 
 n_2 = len(dat_in) # numbero de puntos en el intervalo                                                     
@@ -86,7 +87,7 @@ plt.plot(h_2, transformada_2)
 plt.show()
 
 
-
+#interpolacion
 x_interpolacion= np.linspace(dat_in[0,0], dat_in[(n_2-1),0],512)
 h_i= (dat_in[0,0] - dat_in[(n_2-1),0])/512
 fcuadratica=[]
@@ -150,8 +151,49 @@ for i in range (n_4):
 h= fft.fftfreq(n,dt)
 h_4=fft.fftfreq(n_4,h_i)
 transformada_4=abs(np.real(G_N4))
+
 plt.figure()
+plt.subplot(311)
 plt.plot(h_3,transformada_3)
+plt.subplot(312)
 plt.plot(h_4,transformada_4)
+plt.subplot(313)
 plt.plot(h,transformada)
 plt.show()
+
+def filtro2(trans, frec):
+    for i in range(len(frec)):
+        if(abs(frec[i])<500):
+            trans[i]=0
+    return trans
+
+#filtro 1000
+n_filt= filtro(transformada, h) 
+cua_filt= filtro(transformada_3,h)
+cub_filt= filtro(transformada_4, h)
+f1=np.fft.ifft(n_filt)
+f2=np.fft.ifft(cua_filt)
+f3=np.fft.ifft(cub_filt)
+
+#filtro 500
+n_filt_2= filtro(transformada, h)
+cua_filt_2= filtro(transformada_3,h_3)
+cub_filt_2= filtro(transformada_4, h_4)
+f1_500= fft.ifft(n_filt_2)
+f2_500= fft.ifft(cua_filt_2)
+f3_500= fft.ifft(cub_filt_2)
+
+
+plt.figure()
+plt.subplot(211)
+plt.plot(t, f1, c='blue')
+plt.plot(t, f2, c='red')
+plt.plot(t, f3)
+plt.subplot(212)
+plt.plot(t, f1_500)
+plt.plot(t, f2_500)
+plt.plot(t, f3_500)
+plt.show()
+
+
+
