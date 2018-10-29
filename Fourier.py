@@ -29,4 +29,7 @@ print G_N
 h=fft.fftfreq(len(G_N))
 
 plt.figure()
-plt.plot()
+plt.plot(h,np.real(G_N))
+plt.show()
+
+
