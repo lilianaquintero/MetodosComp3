@@ -16,7 +16,7 @@ file_2 = np.genfromtxt("datos1.dat", delimiter=",", dtype="string")
 
 colum_1=file_2[:,1]
 
-txt= np.genfromtxt('datos1.dat', delimiter=',', usecols=(2,3,4,5,6,7,8,9,10,11))
+txt= np.genfromtxt('datos1.dat', delimiter=',', usecols=(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
 
 print colum_1
 colum=[]
@@ -36,9 +36,22 @@ matriz=([[colum[0],colum[1],colum[2],colum[3],colum[4],colum[5],colum[6],colum[7
 print "La matriz de covarianza es:"
 print matriz
 
+matriz2=[]
+
+j=0
+while j<900:
+       	k=0
+	a=[]
+       	while k<30:
+       		a.append(colum[j])
+       		k=k+1
+		j=j+1
+	matriz2.append(a)
+	a=[]
+print matriz2
 #sacar autovectores y autovalores
 
-x,y= np.linalg.eig(matriz)
+x,y= np.linalg.eig(matriz2)
 print "radio"
 print "Autovector",y[0]," Autovalores", x[0]
 print "Textura" 
@@ -66,3 +79,8 @@ print"Los parametros mas mportantes son el radio (",x[0], ")  y la textura (", x
 
 
 
+eje_x=np.dot(txt)
+eje_y=np.dot(txt)
+
+plt.scatter(eje_y, eje_x)
+plt.show()
