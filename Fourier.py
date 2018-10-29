@@ -8,7 +8,7 @@ print dat
 n = len(dat) # numbero de puntos en el intervalo
 t = dat[:,0]
 y = dat[:,1]
-
+dt=t[1]-t[0]
 plt.figure()
 plt.plot(t,y)
 plt.show()
@@ -26,10 +26,28 @@ for i in range (n):
 
 print G_N
 
-h=fft.fftfreq(len(G_N))
-
+h=fft.fftfreq(n,dt)
+transformada=abs(np.real(G_N))
 plt.figure()
-plt.plot(h,np.real(G_N))
+plt.plot(h,transformada)
 plt.show()
 
+def filtro(trans, frec):
+    for i in range(len(frec)):
+        if(abs(frec[i])>1000):
+            trans[i]=0
+    return trans
+
+f=filtro(transformada,h)
+
+plt.plot(h,f)
+plt.show()
+
+onda_filtrada= np.fft.ifft(f)
+filtrada=abs(np.real(onda_filtrada))
+
+plt.figure()
+plt.plot(t,y)
+plt.plot(t,filtrada)
+plt.show()
 
