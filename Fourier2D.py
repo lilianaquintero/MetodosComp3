@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.fftpack as fft
-#from scipy import ndimage, misc 
 
 
 img= plt.imread("arbol.png")
@@ -15,14 +14,14 @@ plt.figure()
 plt.subplot(211)
 plt.plot(frec, transformada)
 plt.subplot(212)
-plt.imshow(abs(transformada))
+plt.imshow(abs(transformada), )
 plt.colorbar()
 plt.show()
 
 def filtro(trans, frec):
     for i in range(len(frec)):
 	for j in range(len(frec)):
-        	if((abs(trans[i,j])>3000) and (abs(trans[i,j])<5000)):
+        	if((abs(trans[i,j])>4000) and (abs(trans[i,j])<5000)):
             		trans[i,j]=0
     return trans
 
@@ -37,10 +36,10 @@ plt.colorbar()
 plt.show()
 
 
-filt_im= np.fft.ifft(f)
+filt_im= np.fft.ifft2(f)
 filt= np.array(filt_im)
 print np.shape(filt)
-#plt.imsave("bla_1.pdf", np.real(filt))
+plt.imsave("bla_11.pdf", np.real(filt), cmap="gray")
 
 
 
