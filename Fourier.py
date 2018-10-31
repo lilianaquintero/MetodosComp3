@@ -3,18 +3,23 @@ import matplotlib.pyplot as plt
 import scipy.fftpack as fft
 from scipy import interpolate
 
-
+#tarer datos del signal.dat
 dat= np.genfromtxt("signal.dat", usecols=(0,2))
 
 n = len(dat) # numbero de puntos en el intervalo
 t = dat[:,0]
 y = dat[:,1]
 dt=t[1]-t[0]
+
+#grafia de datos
 plt.figure()
-plt.plot(t,y)
-#plt.show()
+plt.plot(t,y, c="lime")
+plt.xlabel("Tiempo")
+plt.ylabel("Amplitud")
+plt.title("Datos T vs A signal.dat")
+plt.show()
 
-
+#implementacion propia Fourier:
 G_N=[]
 i_s=[]
 for i in range (n):
@@ -25,31 +30,38 @@ for i in range (n):
         gn=gn+h
     G_N.append(gn)
 
-print G_N
-
-h=fft.fftfreq(n,dt)
+h=fft.fftfreq(n,dt) #sacar la frecuencia
 transformada=abs(np.real(G_N))
+
+#plot transformada
 plt.figure()
-plt.plot(h,transformada)
+plt.plot(h,transformada, c="darkmagenta")
+plt.xlabel("Frecuencia")
+plt.ylabel("Amplitud")
+plt.title("Transformada de Fourier Signal.dat F vs A")
 plt.show()
 
+print "Las frecuencias principales de la funcion son :384.261 Hz, 362.544 Hz, 139.695 Hz y 0"
+
+#el filtro para la transformada pasa bajos
 def filtro(trans, frec):
     for i in range(len(frec)):
         if(abs(frec[i])>1000):
             trans[i]=0
     return trans
 
-f=filtro(transformada,h)
+f=filtro(G_N,h)
 
-plt.plot(h,f)
-plt.show()
-
+#transformada inversa de la filtrada
 onda_filtrada= np.fft.ifft(f)
 filtrada=(np.real(onda_filtrada))
 
+
 plt.figure()
-plt.plot(t,y)
-plt.plot(t,filtrada)
+plt.plot(t,filtrada, c="gold")
+plt.xlabel("Tiempo")
+plt.ylabel("Amplitud Filtrada")
+plt.title("Senial filtrada")
 plt.show()
 
 #datos incompletos
@@ -63,7 +75,7 @@ plt.figure()
 plt.plot(t_2,y_2)
 plt.show()                                                                                          
 
-
+#transformada datos incompletos
 G_N2=[]
 i_s=[]
 for i in range (n_2):
@@ -74,18 +86,18 @@ for i in range (n_2):
         gn=gn+h
     G_N2.append(gn)
 
-print G_N2
-
 h_2=fft.fftfreq(n_2,dt_2)
 transformada_2=abs(np.real(G_N2))
-print np.size(y_2)
-print np.size(t_2)
-print np.size(h_2)
-print np.size(transformada_2)
 
-plt.plot(h_2, transformada_2)
+#no plotear
+plt.figure()
+plt.plot(h_2, transformada_2, c="mediumblue")
+plt.xlabel("Frecuencia")
+plt.ylabel("Amplitud")
+plt.title("Transformada de Fourier: datos incompletos")
 plt.show()
 
+print "Los datos incompletos no se pueden usar ya que NO SEEE"
 
 #interpolacion
 x_interpolacion= np.linspace(dat_in[0,0], dat_in[(n_2-1),0],512)
@@ -94,7 +106,6 @@ fcuadratica=[]
 fcubica=[]
 #funcion que hace la interpolacion y grafica la lineal, cuadratica y cubica
 def interpolacion (dat_in, x_interpolacion,fcuadratica,fcubica): 
-#tiene com oparametro el archivo y el arrray como pide el enunciado y ademaslas 3 listas con los puntos interpolados ya que los voya necesitar para el punto b
     x=dat_in[:,0]
     y=dat_in[:,1]
     cuadratica=interpolate.interp1d(x,y, kind="quadratic")
@@ -121,15 +132,15 @@ t = dat[:,0]
 y_3= fcuadratica
 G_N3=[]
 i_s=[]
+
 for i in range (n_3):
     gn=0.0
     i_s.append(i)
     for j in range (n):
-        h= y[j]*np.exp(-1j*2*np.pi*j*(float(i)/n))
+        h= y_3[j]*np.exp(-1j*2*np.pi*j*(float(i)/n))
         gn=gn+h
     G_N3.append(gn)
 
-print G_N3
 
 h_3=fft.fftfreq(n_3,h_i)
 transformada_3=abs(np.real(G_N3))
@@ -144,7 +155,7 @@ for i in range (n_4):
     gn=0.0
     i_s.append(i)
     for j in range (n):
-        h= y[j]*np.exp(-1j*2*np.pi*j*(float(i)/n))
+        h= y_4[j]*np.exp(-1j*2*np.pi*j*(float(i)/n))
         gn=gn+h
     G_N4.append(gn)
 
@@ -168,17 +179,17 @@ def filtro2(trans, frec):
     return trans
 
 #filtro 1000
-n_filt= filtro(transformada, h) 
-cua_filt= filtro(transformada_3,h)
-cub_filt= filtro(transformada_4, h)
+n_filt= filtro(G_N, h) 
+cua_filt= filtro(G_N3,h)
+cub_filt= filtro(G_N4, h)
 f1=np.fft.ifft(n_filt)
 f2=np.fft.ifft(cua_filt)
 f3=np.fft.ifft(cub_filt)
 
 #filtro 500
-n_filt_2= filtro(transformada, h)
-cua_filt_2= filtro(transformada_3,h_3)
-cub_filt_2= filtro(transformada_4, h_4)
+n_filt_2= filtro(G_N, h)
+cua_filt_2= filtro(G_N3,h_3)
+cub_filt_2= filtro(G_N4, h_4)
 f1_500= fft.ifft(n_filt_2)
 f2_500= fft.ifft(cua_filt_2)
 f3_500= fft.ifft(cub_filt_2)
