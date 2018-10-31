@@ -25,9 +25,6 @@ txt= np.genfromtxt('WDBC.dat', delimiter=',', usecols=(2,3,4,5,6,7,8,9,10,11,12,
 
 colum=[]
 
-for k in range (len(txt[30])):
-	txt[:,k]=(txt[:,k]-np.mean(txt[k]))/np.std(txt[:,k])
-
 #metodo de covariazas
 for i in range (len(txt[0])):
         for j in range (len(txt[0])):
@@ -155,7 +152,7 @@ print "Fractal dimension"
 print"Autovector",y[29]," Autovalor", x[29]
 print" "
 
-print"Los parametros mas importantes son el radio y la textura ya que los otros eigenvector son similares a e estos por tanto estos son independientes y son los que tienen lso eigenvalues mas grandes."
+print"Los parametros mas importantes son el radio y la textura ya que los otros eigenvector son similares a e estos por tanto no son vectores independientes, estos y el perimetro son independientes y radio y textura son los que tienen los eigenvalues mas grandes."
 
 
 
@@ -185,6 +182,6 @@ plt.legend(loc="best")
 plt.savefig("QuinteroLiliana_PCA.pdf")
 
 print " "
-print "El metodo es util para determinar si la muestra es benigna o maligna en tanto para radios mas cercanos al 0 se obtienen valores unicamente benignos y cuando el radio aumenta la determinacion pasa a ser directamente de la textura con la cual se puede determinar un limite de textura a partir de la cual se obtienen resultados malignos."
+print "El metodo es util para determinar si la muestra es benigna o maligna ya que en la grafica se puede observar un 'punto de corte' de los datos donde estando en cierta zona 100% de los datos son benignos y en otro 100% son malignos asi con certeza se puede determinar en estos casos si es benigno o maligno, sin empargo para la zona central donde se mezclan algunos datos de benigno y maligno se podria quiza observar la tercera componente independiente para ver su papel en los datos, pero fuera de esa pequeña zona donde hay ambos datos en general podemos determinar que el metodo funciona."
 
 
