@@ -25,7 +25,7 @@ txt= np.genfromtxt('datos1.dat', delimiter=',', usecols=(2,3,4,5,6,7,8,9,10,11,1
 
 colum=[]
 
-#metodo de fourier
+#metodo de covariazas
 for i in range (len(txt[0])):
         for j in range (len(txt[0])):
                 lista1=txt[:,i]-np.average(txt[:,i])
