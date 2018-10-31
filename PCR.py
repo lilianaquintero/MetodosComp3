@@ -51,10 +51,9 @@ while j<900:
 	a=[]
 print "La matriz de covariaza es:"
 print matriz2
-
 #sacar autovectores y autovalores e imprimirlos
-
 x,y= np.linalg.eig(matriz2)
+
 print " "
 
 print "MEAN"
@@ -156,13 +155,13 @@ print "Fractal dimension"
 print"Autovector",y[29]," Autovalor", x[29]
 print" "
 
-print"Los parametros mas importantes son el radio y la textura debido a que tienen el mayor autovalor."
+print"Los parametros mas importantes son el radio y la textura ya que los otros eigenvector son similares a e estos por tanto estos son independientes y son los que tienen lso eigenvalues mas grandes."
 
 
 
 #saco todos los datos en coordenadas de PC1 y PC2
-eje_x=np.dot(txt,y[0])
-eje_y=np.dot(txt, y[1])
+eje_x=np.dot(txt,y[1])
+eje_y=np.dot(txt, y[0])
 B_x=[]
 B_y=[]
 M_x=[]
@@ -177,15 +176,15 @@ for i in range (len(eje_x)):
 		B_y.append(eje_y[i])
 
 plt.figure()
-plt.scatter(B_x, B_y, c='green', label="Benignos")
-plt.scatter(M_x, M_y, c='red', label="Malignos")
-plt.xlabel("PC1: Radio")
-plt.ylabel("PC2: Textura")
+plt.scatter(B_x, B_y, c='green', label="Benignos", s=1)
+plt.scatter(M_x, M_y, c='red', label="Malignos", s=1)
+plt.xlabel("PC1: Textura")
+plt.ylabel("PC2: Radio")
 plt.title("Proyeccion datos en PC1 y PC2")
 plt.legend(loc="best")
 plt.savefig("QuinteroLiliana_PCA.pdf")
 
 print " "
-print "El metodo es util para determinar si la muestra es benigna o maligna pero solo para cuando el dato se encuentre en ciertos rangos. Por ejemplo (respecto la grafica) en el rango de aprox radio: 1-10 y textura: -50-(-400) se encuentran tanto datos benignos como malignos y asi podemos decir que el metodo no es diciente en estos casos ya que no se puede determinar nada, pero mas alla de ese rango se puede determinar dependiento de las coordenadas de los resultados si la muestra es benigna o maligna."
+print "El metodo es util para determinar si la muestra es benigna o maligna en tanto para radios mas cercanos al 0 se obtienen valores unicamente benignos y cuando el radio aumenta la determinacion pasa a ser directamente de la textura con la cual se puede determinar un limite de textura a partir de la cual se obtienen resultados malignos."
 
 
