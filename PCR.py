@@ -21,9 +21,12 @@ file_2 = np.genfromtxt("WDBC.dat", delimiter=",", dtype="string")
 #esta es la columna de las letras
 colum_1=file_2[:,1]
 
-txt= np.genfromtxt('datos1.dat', delimiter=',', usecols=(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
+txt= np.genfromtxt('WDBC.dat', delimiter=',', usecols=(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
 
 colum=[]
+
+for k in range (len(txt[30])):
+	txt[:,k]=(txt[:,k]-np.mean(txt[k]))/np.std(txt[:,k])
 
 #metodo de covariazas
 for i in range (len(txt[0])):
@@ -154,6 +157,7 @@ print"Autovector",y[29]," Autovalor", x[29]
 print" "
 
 print"Los parametros mas importantes son el radio y la textura debido a que tienen el mayor autovalor."
+
 
 
 #saco todos los datos en coordenadas de PC1 y PC2
