@@ -182,6 +182,6 @@ plt.legend(loc="best")
 plt.savefig("QuinteroLiliana_PCA.pdf")
 
 print " "
-print "El metodo es util para determinar si la muestra es benigna o maligna ya que en la grafica se puede observar un 'punto de corte' de los datos donde estando en cierta zona 100% de los datos son benignos y en otro 100% son malignos asi con certeza se puede determinar en estos casos si es benigno o maligno, sin empargo para la zona central donde se mezclan algunos datos de benigno y maligno se podria quiza observar la tercera componente independiente para ver su papel en los datos, pero fuera de esa pequeña zona donde hay ambos datos en general podemos determinar que el metodo funciona."
+print "El metodo es util para determinar si la muestra es benigna o maligna ya que en la grafica se puede observar un 'punto de corte' de los datos donde estando en cierta zona todos los datos son benignos y en otro todos son malignos asi con certeza se puede determinar en estos casos si es benigno o maligno, sin empargo para la zona central donde se mezclan algunos datos de benigno y maligno se podria quiza observar la tercera componente independiente para ver su papel en los datos, pero fuera de esa pequenia zona donde hay ambos datos en general podemos determinar que el metodo funciona."
 
 
