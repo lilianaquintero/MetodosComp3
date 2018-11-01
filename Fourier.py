@@ -87,7 +87,7 @@ h_2=fft.fftfreq(n_2,dt_2)
 transformada_2=abs(np.real(G_N2))
 
 
-print "Los datos incompletos no se pueden usar ya que NO SEEE"
+print "Los datos incompletos no se pueden usar ya que para poder usar la transformada de Fourier se asume que los puntos estan todos distanciados igualmente y como los datos se encuentran incompletos la distancia entre estos varia entre cada punto y no podemos hallar la transformada."
 
 #interpolacion
 x_interpolacion= np.linspace(dat_in[0,0], dat_in[(n_2-1),0],512)
@@ -171,6 +171,9 @@ plt.xlabel("Frecuencia")
 plt.ylabel("Amplitud")
 plt.legend(loc="best")
 plt.savefig("QuinteroLiliana_TF_interpola.pdf")
+
+print "En la transformada de las interpolaciones se elimina uno de los picos principales sim embargo alrededor de los picos mas altos hay mas maplitudes pequeñas que en la transformada normal no se encuentran, se concervan las amplitudes de lso picos principales sin embargo las interpolaciones 'matan' tambien los picos pequeñños para las frecuencias mayores como una especia de mini-filtro dodne se disminuyen las amplitudes de estas frecuencias."
+
 
 #filtro para <500
 def filtro2(trans, frec):
