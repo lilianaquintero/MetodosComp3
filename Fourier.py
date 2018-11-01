@@ -172,7 +172,7 @@ plt.ylabel("Amplitud")
 plt.legend(loc="best")
 plt.savefig("QuinteroLiliana_TF_interpola.pdf")
 
-print "En la transformada de las interpolaciones se elimina uno de los picos principales sim embargo alrededor de los picos mas altos hay mas maplitudes pequeñas que en la transformada normal no se encuentran, se concervan las amplitudes de lso picos principales sin embargo las interpolaciones 'matan' tambien los picos pequeñños para las frecuencias mayores como una especia de mini-filtro dodne se disminuyen las amplitudes de estas frecuencias."
+print "En la transformada de las interpolaciones se elimina uno de los picos principales sim embargo alrededor de los picos mas altos hay mas maplitudes pequenias que en la transformada normal no se encuentran, se concervan las amplitudes de lso picos principales sin embargo las interpolaciones 'matan' tambien los picos pequenios para las frecuencias mayores como una especia de mini-filtro dodne se disminuyen las amplitudes de estas frecuencias."
 
 
 #filtro para <500
